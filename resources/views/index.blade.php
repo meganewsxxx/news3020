@@ -1,3 +1,6 @@
+<?php
+use Carbon\Carbon;
+?>
 @extends('layouts.base')
 @section('content')
     <div class="row">
@@ -13,6 +16,12 @@
                     <div class="card-body">
                         <h2 class="card-title"><a href="/{{$type}}/{{$val->id}}/{{$val->url}}">{{$val->title}}</a></h2>
                         <p class="card-text">{{$val->description}}</p>
+                    </div>
+                    <div class="card-footer text-muted">
+{{
+!$diff = Carbon::createFromTimeStamp(strtotime($val->pubDate))->diffForHumans()
+}}
+                        <a href="{{$val->link}}">{{$val->source}}</a> [{{$diff}}]
                     </div>
                 </div>
             @endforeach
