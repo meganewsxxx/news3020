@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 use App\type;
+use App\item;
 
 class BaseController extends Controller
 {
-    public function getIndex() {
+    public function getIndex()
+    {
         $types = type::all();
-        //dd($types);
-        return view('index', compact('types'));
+        $items = item::orderBy('id', 'DESC')->paginate(2);
+        return view('index', compact('types', 'items'));
     }
 }
