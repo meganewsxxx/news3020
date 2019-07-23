@@ -11,3 +11,6 @@ Route::get('/media', 'TypeController@getMedia');
 
 Route::get('/news/{id}/{url?}', 'TypeController@getNewsDetail')->where(['id' => '[0-9]+', 'name' => '[A-z0-9_]+']);
 Route::get('/media/{id}/{url?}', 'TypeController@getMediaDetail')->where(['id' => '[0-9]+', 'name' => '[A-z0-9_]+']);
+
+Route::get('/tags', 'TypeController@getTags');
+Route::get('/tags/{tag}', 'TypeController@getTagsRelative')->where(['tag' => '[A-z0-9]+']);

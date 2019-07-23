@@ -1,27 +1,33 @@
-<?php
-use Carbon\Carbon;
-?>
 @extends('layouts.base')
 @section('content')
     <div class="row">
         <div class="col-md-8">
             <br>
             @foreach($items as $val)
-                @if ($val->type_id == 1)
-                    {{!$type = 'news'}}
-                @elseif ($val->type_id == 2)
-                    {{!$type = 'media'}}
-                @endif
+                @php
+                    if ($val->type_id == 1) {
+                        $type = 'news';
+                    }
+                    elseif ($val->type_id == 2) {
+                        $type = 'media';
+                    }
+                @endphp
                 <div class="card mb-4">
                     <div class="card-body">
                         <h2 class="card-title"><a href="/{{$type}}/{{$val->id}}/{{$val->url}}">{{$val->title}}</a></h2>
                         <p class="card-text">{{$val->description}}</p>
                     </div>
                     <div class="card-footer text-muted">
-{{
-!$diff = Carbon::createFromTimeStamp(strtotime($val->pubDate))->diffForHumans()
-}}
+                        {{
+                            !$diff = Carbon\Carbon::createFromTimeStamp(strtotime($val->pubDate))->diffForHumans()
+                        }}
+                        {{
+                            !$arr = explode(',', $val->tags)
+                        }}
                         <a href="{{$val->link}}">{{$val->source}}</a> [{{$diff}}]
+[@foreach($arr as $k => $v)
+<a href="/tags/{{$v}}">{{$v}}</a>@if($k+1!=count($arr)), @endif
+@endforeach]
                     </div>
                 </div>
             @endforeach
